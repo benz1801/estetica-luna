@@ -76,7 +76,7 @@ export default function Contact() {
               className="mt-6 max-w-md text-base leading-relaxed text-ink-700 reveal text-pretty"
               style={leadStagger.getItemStyle(0)}
             >
-              Scrivici su WhatsApp per prenotare il tuo rituale: rispondiamo entro un'ora, in
+              Scrivici su WhatsApp per prenotare il tuo rituale: rispondiamo entro un&apos;ora, in
               orario di apertura. Per richieste olistiche e pacchetti cerimonia, scrivici una mail
               e ti ricontatteremo con una proposta su misura.
             </p>
@@ -180,7 +180,7 @@ export default function Contact() {
                   />
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-botanical-900/70 via-botanical-900/10 to-transparent" />
                   <p className="absolute bottom-5 left-5 right-5 font-display text-lg italic text-cream-50">
-                    «L'appuntamento è il tuo tempo. Noi lo custodiamo.»
+                    «L&apos;appuntamento è il tuo tempo. Noi lo custodiamo.»
                   </p>
                 </div>
               </div>

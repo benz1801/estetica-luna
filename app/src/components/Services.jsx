@@ -1,67 +1,116 @@
 import {
-  Hand,
+  Scissors,
   Sparkles,
-  Flower2,
+  Hand,
   Wind,
   Eye,
-  Sun,
-  ArrowUpRight,
+  Flower2,
+  HeartPulse,
+  Plus,
 } from 'lucide-react';
 import useReveal from '../hooks/useReveal';
 import useRevealStagger from '../hooks/useRevealStagger';
 import SplitText from './SplitText';
 import Eyebrow from './Eyebrow';
 import Marquee from './Marquee';
+import ServiceCard from './ServiceCard';
 
 const services = [
   {
-    icon: Hand,
-    title: 'Manicure & Nail Art',
-    desc: 'Rituali di cura delle mani con formule biologiche e finiture su misura, dal nude più sobrio al dettaglio dorato.',
-    accent: 'sage',
+    icon: Scissors,
+    title: 'Ceretta',
+    tagline: 'Cere vegetali, pelle liscia a lungo.',
+    description:
+      'Epilazione progressiva con cere vegetali tiepide, stretch delicate e una routine post-trattamento che idrata e lenisce. Per gambe, braccia e zone estese.',
+    duration: '30 — 60 min',
+    price: 'da € 25',
+    accent: 'rose',
+    align: 'left',
   },
   {
     icon: Sparkles,
-    title: 'Pulizia del Viso',
-    desc: 'Detoss profonda, estrusioni delicate e maschere illuminanti per una pelle che respira e riflette nuova luce.',
+    title: 'Ceretta Brasiliana',
+    tagline: 'Pulizia profonda, gesti precisi.',
+    description:
+      'Ceretta intima totale con tecnica brasiliana, prodotti ipoallergenici e attenzione assoluta a comfort e privacy. Igiene assoluta, zero giudizio.',
+    duration: '40 min',
+    price: 'da € 45',
     accent: 'rose',
+    align: 'center',
   },
   {
-    icon: Flower2,
-    title: 'Trattamenti Viso',
-    desc: 'Protocolli personalizzati anti-età, idratazione profonda e siero-terapie con attivi puri di ultima generazione.',
+    icon: Plus,
+    title: 'Filo Arabo',
+    tagline: 'Sopracciglia disegnate, viso che si apre.',
+    description:
+      'Design sopracciglia con la tradizionale tecnica del filo arabo: precisione millimetrica, traiettoria naturale del pelo, sguardo liftato senza pinzette aggressive.',
+    duration: '15 — 20 min',
+    price: 'da € 15',
     accent: 'sage',
+    align: 'center',
   },
   {
     icon: Wind,
-    title: 'Massaggi & Corpo',
-    desc: 'Massaggi rilassanti, decontratturanti e drenanti con oli botanici spremuti a freddo e pietre aromatiche.',
+    title: 'Massaggi specifici',
+    tagline: 'Oli botanici, ritmo lento.',
+    description:
+      'Massaggi mirati — decontratturante, rilassante, drenante o linfatico — costruiti sul tuo corpo e sul momento. Oli botanici spremuti a freddo e musica a basso volume.',
+    duration: '50 — 75 min',
+    price: 'da € 60',
+    accent: 'sage',
+    align: 'left',
+  },
+  {
+    icon: Hand,
+    title: 'Manicure e Pedicure',
+    tagline: 'Mani e piedi come rituali quotidiani.',
+    description:
+      'Trattamenti completi per mani e piedi con bagni emollienti, cuticole curate, limatura studiata e finiture dal nude più sobrio allo smalto semipermanente. Formule biologiche.',
+    duration: '45 — 75 min',
+    price: 'da € 35',
     accent: 'rose',
+    align: 'center',
+  },
+  {
+    icon: Flower2,
+    title: 'Laminazione',
+    tagline: 'Ciglia curve, sguardo naturale.',
+    description:
+      'Laminazione ciglia e sopracciglia con cheratina e vitamine: curvatura naturale, volume disciplinato e un effetto "sveglia così" che dura fino a sei settimane.',
+    duration: '45 min',
+    price: 'da € 55',
+    accent: 'rose',
+    align: 'left',
+  },
+  {
+    icon: HeartPulse,
+    title: 'Pressoterapia',
+    tagline: 'Leggerezza, gambe sgonfie.',
+    description:
+      'Pressoterapia sequenziale con gambali a 12 camere d&apos;aria per favorire il microcircolo, alleggerire le gambe e combattere ritenzione. Ideale dopo l&apos;estate o in gravidanza.',
+    duration: '30 — 45 min',
+    price: 'da € 40',
+    accent: 'sage',
+    align: 'center',
   },
   {
     icon: Eye,
-    title: 'Sopraciglia & Sguardo',
-    desc: 'Design sopracciglia, laminazione ciglia e tinture naturali per uno sguardo che apre e definisce il viso.',
-    accent: 'sage',
-  },
-  {
-    icon: Sun,
-    title: 'Cerimonie & Epilazione',
-    desc: 'Epilazione progressiva con cere vegetali e percorsi corpo stagionali per preparare la pelle al sole.',
+    title: 'Extension Ciglia',
+    tagline: 'Volume, lunghezza, personalità.',
+    description:
+      'Applicazione one-to-one di extension in seta o pelo sintetico di ultima generazione. Effetto ciglia finte che durano fino a cinque settimane, con refill periodici dedicati.',
+    duration: '90 — 120 min',
+    price: 'da € 90',
     accent: 'rose',
+    align: 'left',
   },
 ];
-
-const accents = {
-  sage: 'bg-sage-50 text-sage-700 ring-sage-100',
-  rose: 'bg-rose-50 text-rose-500 ring-rose-100',
-};
 
 export default function Services() {
   const eyebrowRef = useReveal();
   const leadRef = useReveal();
 
-  // services has a constant length, so calling a fixed number of hooks here is safe.
+  // services has a constant length (8), so a fixed number of hooks here is safe.
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const cardRefs = services.map(() => useReveal());
 
@@ -87,7 +136,7 @@ export default function Services() {
               </div>
               <h2 className="mt-5 font-display text-4xl leading-tight sm:text-5xl text-balance">
                 <span className="block">
-                  <SplitText text="Sei gesti, una sola" />
+                  <SplitText text="Otto gesti, una sola" />
                 </span>
                 <span className="block">
                   <SplitText
@@ -109,30 +158,23 @@ export default function Services() {
             </p>
           </div>
 
-          <ul className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map(({ icon: Icon, title, desc, accent }, i) => (
-              <li
-                key={title}
+          <ul className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {services.map((s, i) => (
+              <ServiceCard
+                key={s.title}
                 ref={cardRefs[i]}
-                className="card-service reveal group"
-                style={gridStagger.getItemStyle(i)}
-              >
-                <span
-                  className={`inline-grid h-14 w-14 place-items-center rounded-2xl ring-1 ${accents[accent]}`}
-                >
-                  <Icon className="h-6 w-6" strokeWidth={1.5} />
-                </span>
-                <h3 className="mt-6 font-display text-2xl text-ink-900">{title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-ink-700">{desc}</p>
-                <div className="mt-8 flex items-center justify-between">
-                  <span className="text-[11px] uppercase tracking-widest2 text-ink-500">
-                    Scopri di più
-                  </span>
-                  <span className="grid h-9 w-9 place-items-center rounded-full bg-ink-900 text-cream-50 transition-all duration-300 group-hover:bg-sage-700 group-hover:rotate-45">
-                    <ArrowUpRight className="h-4 w-4" />
-                  </span>
-                </div>
-              </li>
+                index={i + 1}
+                icon={s.icon}
+                title={s.title}
+                tagline={s.tagline}
+                description={s.description}
+                duration={s.duration}
+                price={s.price}
+                accent={s.accent}
+                align={s.align}
+                transitionDelay={(gridStagger.getItemStyle(i)?.transitionDelay || 0)
+                  .replace('ms', '')}
+              />
             ))}
           </ul>
         </div>
@@ -141,12 +183,12 @@ export default function Services() {
       <Marquee
         tone="light"
         items={[
-          'Viso luminoso',
-          'Mani curate',
-          'Massaggi su misura',
-          'Ciglia intense',
-          'Pelle che respira',
-          'Piccoli rituali quotidiani',
+          'Ceretta brasiliana',
+          'Filo arabo',
+          'Pressoterapia',
+          'Laminazione ciglia',
+          'Extension ciglia',
+          'Manicure curata',
         ]}
       />
     </>

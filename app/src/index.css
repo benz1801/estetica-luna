@@ -347,6 +347,13 @@
     transition: none !important;
   }
   .eyebrow-anim .eyebrow-line { width: 2rem !important; }
+  /* service cards: always show both layers stacked, no motion */
+  .reveal.group [class*="translate-y-full"] {
+    transform: none !important;
+  }
+  .reveal.group [class*="group-hover:opacity-0"] {
+    opacity: 1 !important;
+  }
 }
 
 @layer utilities {
