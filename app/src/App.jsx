@@ -22,9 +22,9 @@ function App() {
         tone="dark"
         items={[
           'Prenota il tuo rituale',
-          'Via dei Tigli 14 · Milano',
-          'Aperto anche il sabato',
-          'WhatsApp 02 2333 4455',
+          'Via Nazionale 206 · Ponticino',
+          'Aperto fino a venerdì incluso',
+          'WhatsApp 3458889593',
           'Cosmetici biologici',
           'Tre cabine per te',
         ]}

@@ -1,7 +1,7 @@
 import { Instagram, Facebook, Send } from 'lucide-react';
 
 const socials = [
-  { icon: Instagram, label: 'Instagram', href: '#' },
+  { icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/_estetica.luna/' },
   { icon: Facebook, label: 'Facebook', href: '#' },
   { icon: Send, label: 'Telegram', href: '#' },
 ];
@@ -58,9 +58,9 @@ export default function Footer() {
             ))}
           </ul>
           <p className="mt-6 text-sm text-cream-100/70">
-            Via dei Tigli 14 · 20121 Milano
+            Via Nazionale 206 · 52019 Ponticino
             <br />
-            02 2333 4455 · ciao@esteticaluna.it
+            3458889593 · ciao@esteticaluna.it
           </p>
         </div>
       </div>

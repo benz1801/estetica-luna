@@ -6,13 +6,13 @@ import SplitText from './SplitText';
 import ImageCurtain from './ImageCurtain';
 
 const hours = [
-  { day: 'Lunedì', time: '10:00 — 19:00' },
-  { day: 'Martedì', time: '10:00 — 19:00' },
-  { day: 'Mercoledì', time: '10:00 — 19:00' },
-  { day: 'Giovedì', time: '10:00 — 21:00' },
-  { day: 'Venerdì', time: '10:00 — 21:00' },
-  { day: 'Sabato', time: '09:00 — 17:00' },
-  { day: 'Domenica', time: 'Riposo' },
+  { day: 'Lunedì', time: '09:00 — 20:00' },
+  { day: 'Martedì', time: '09:00 — 20:00' },
+  { day: 'Mercoledì', time: '09:00 — 20:00' },
+  { day: 'Giovedì', time: '09:00 — 20:00' },
+  { day: 'Venerdì', time: '09:00 — 20:00' },
+  { day: 'Sabato', time: 'Chiuso' },
+  { day: 'Domenica', time: 'Chiuso' },
 ];
 
 export default function Contact() {
@@ -61,7 +61,7 @@ export default function Contact() {
               <Eyebrow>Ti aspettiamo</Eyebrow>
             </div>
             <h2 className="mt-5 font-display text-4xl leading-tight sm:text-5xl text-balance">
-              <SplitText as="span" text="Ti aspettiamo in via dei Tigli," />
+              <SplitText as="span" text="Ti aspettiamo in Via Nazionale," />
               <br />
               <SplitText
                 as="span"
@@ -76,7 +76,7 @@ export default function Contact() {
               className="mt-6 max-w-md text-base leading-relaxed text-ink-700 reveal text-pretty"
               style={leadStagger.getItemStyle(0)}
             >
-              Scrivici su WhatsApp per prenotare il tuo rituale: rispondiamo entro un&apos;ora, in
+              Scrivici su WhatsApp per prenotare il tuo rituale: rispondiamo entro un'ora, in
               orario di apertura. Per richieste olistiche e pacchetti cerimonia, scrivici una mail
               e ti ricontatteremo con una proposta su misura.
             </p>
@@ -87,15 +87,15 @@ export default function Contact() {
               style={buttonGroupStagger.getItemStyle(0)}
             >
               <a
-                href="https://wa.me/390223334455?text=Ciao%20Lunarda%2C%20vorrei%20prenotare%20un%20appuntamento"
+                href="https://wa.me/3458889593?text=Ciao%20Lunarda%2C%20vorrei%20prenotare%20un%20appuntamento"
                 target="_blank"
                 rel="noreferrer"
                 className="btn-primary justify-center"
               >
                 <MessageCircle className="h-4 w-4" /> Scrivici su WhatsApp
               </a>
-              <a href="tel:+390223334455" className="btn-ghost">
-                <Phone className="h-4 w-4" /> 02 2333 4455
+              <a href="tel:+3458889593" className="btn-ghost">
+                <Phone className="h-4 w-4" /> 3458889593
               </a>
             </div>
 
@@ -110,7 +110,7 @@ export default function Contact() {
                 </span>
                 <div>
                   <dt className="font-medium text-ink-900">Indirizzo</dt>
-                  <dd className="text-ink-700">Via dei Tigli 14, 20121 Milano (MI)</dd>
+                  <dd className="text-ink-700">Via Nazionale 206, 52019 Laterina Pergine Valdarno (AR)</dd>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -158,7 +158,7 @@ export default function Contact() {
                         <span>{h.day}</span>
                         <span
                           className={`tabular-nums ${
-                            h.time === 'Riposo' ? 'text-rose-500' : 'text-ink-700'
+                            h.time === 'Chiuso' ? 'text-rose-500' : 'text-ink-700'
                           }`}
                         >
                           {h.time}
@@ -180,7 +180,7 @@ export default function Contact() {
                   />
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-botanical-900/70 via-botanical-900/10 to-transparent" />
                   <p className="absolute bottom-5 left-5 right-5 font-display text-lg italic text-cream-50">
-                    «L&apos;appuntamento è il tuo tempo. Noi lo custodiamo.»
+                    «L'appuntamento è il tuo tempo. Noi lo custodiamo.»
                   </p>
                 </div>
               </div>
