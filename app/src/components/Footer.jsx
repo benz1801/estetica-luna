@@ -23,7 +23,7 @@ export default function Footer() {
             <span className="font-display text-xl text-cream-50">Estetica Luna</span>
           </div>
           <p className="mt-5 max-w-sm text-sm leading-relaxed text-cream-100/70">
-            Un piccolo santuario di bellezza nel cuore di Milano. Trattamenti su misura,
+            Un piccolo santuario di bellezza in quel di Ponticino. Trattamenti su misura,
             cosmetici biologici e gesti che ritmano la settimana.
           </p>
         </div>
