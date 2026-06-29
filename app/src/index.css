@@ -135,18 +135,26 @@
   }
 
   /* ───── split-text reveal ───── */
-  .split-text {
+  .split-text-word {
+    display: inline;
+    /* ensure visual gap even when neighbouring words are inline-block */
+  }
+  .split-text-mask {
     display: inline-block;
     overflow: hidden;
-    vertical-align: top;
+    vertical-align: bottom;
+    line-height: 1;
+    /* extra margin so consecutive words always have a visible space,
+       regardless of how the browser collapses whitespace between inlines */
+    margin-right: 0.28em;
   }
-  .split-text > span {
+  .split-text-inner {
     display: inline-block;
     transform: translateY(110%);
     transition: transform 1000ms cubic-bezier(0.22, 1, 0.36, 1);
     will-change: transform;
   }
-  .split-text[data-revealed='true'] > span {
+  .split-text-mask[data-revealed='true'] .split-text-inner {
     transform: translateY(0);
   }
 
@@ -330,7 +338,7 @@
   .reveal-left,
   .reveal-right,
   .reveal-blur,
-  .split-text > span {
+  .split-text-inner {
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;

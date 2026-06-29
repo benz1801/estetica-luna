@@ -17,7 +17,8 @@ export default function SplitText({
   base = 0,
   reveal = true,
 }) {
-  const ref = useReveal();
+  // Observe each per-word mask inside the wrapper.
+  const ref = useReveal({ selector: '.split-text-mask' });
   const { getItemStyle } = useRevealStagger({ step, base });
 
   const words = String(text).split(' ');
@@ -29,15 +30,13 @@ export default function SplitText({
       data-revealed={reveal ? undefined : 'true'}
     >
       {words.map((w, i) => (
-        <span
-          key={`${w}-${i}`}
-          className="split-text"
-          data-revealed={reveal ? undefined : 'true'}
-          style={getItemStyle(i)}
-        >
-          <span>
-            {w}
-            {i < words.length - 1 ? ' ' : ''}
+        <span key={`${w}-${i}`} className="split-text-word">
+          <span
+            className="split-text-mask"
+            data-revealed={reveal ? undefined : 'true'}
+            style={getItemStyle(i)}
+          >
+            <span className="split-text-inner">{w}</span>
           </span>
         </span>
       ))}
