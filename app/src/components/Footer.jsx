@@ -13,12 +13,7 @@ export default function Footer() {
         <div>
           <div className="flex items-center gap-3">
             <span className="grid h-10 w-10 place-items-center rounded-full bg-cream-50/10 text-cream-50">
-              <svg viewBox="0 0 32 32" className="h-5 w-5" aria-hidden="true">
-                <path
-                  fill="currentColor"
-                  d="M26 4c-9 0-16 4-19 11-2 5-1 11 3 13 1-7 4-12 9-15-4 4-6 9-7 14 6 1 12-1 15-6 3-5 3-13-1-17Z"
-                />
-              </svg>
+              <img src="/luna.svg" alt="Logo Estetica Luna" className="h-8 w-8 rotate-45 object-contain" />
             </span>
             <span className="font-display text-xl text-cream-50">Estetica Luna</span>
           </div>
