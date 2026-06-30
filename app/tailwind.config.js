@@ -69,11 +69,22 @@ export default {
           '0%': { transform: 'rotate(0deg)' },
           '100%': { transform: 'rotate(360deg)' },
         },
+        pulseRing: {
+          '0%': { transform: 'scale(0.9)', opacity: '0.7' },
+          '70%': { transform: 'scale(1.6)', opacity: '0' },
+          '100%': { transform: 'scale(1.6)', opacity: '0' },
+        },
+        clockRock: {
+          '0%, 100%': { transform: 'rotate(-0.4deg)' },
+          '50%': { transform: 'rotate(0.4deg)' },
+        },
       },
       animation: {
         floatY: 'floatY 8s ease-in-out infinite',
         riseIn: 'riseIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) both',
         slowSpin: 'slowSpin 80s linear infinite',
+        pulseRing: 'pulseRing 2.6s cubic-bezier(0.22, 1, 0.36, 1) infinite',
+        clockRock: 'clockRock 9s ease-in-out infinite',
       },
     },
   },

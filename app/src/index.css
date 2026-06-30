@@ -315,6 +315,44 @@
     100% { top: 100%; }
   }
 
+  /* ───── lunar cue: pulsing moon disc ───── */
+  .scroll-cue .animate-pulseRing {
+    transform-origin: center;
+  }
+
+  /* ───── liquid canvas: organic blobs behind the hero ───── */
+  .liquid-canvas {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: auto;
+  }
+  .liquid-canvas__canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .liquid-canvas__fallback {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    background:
+      radial-gradient(40% 35% at 18% 30%, rgba(107, 132, 86, 0.45), transparent 70%),
+      radial-gradient(35% 30% at 78% 22%, rgba(184, 146, 116, 0.40), transparent 70%),
+      radial-gradient(45% 40% at 62% 78%, rgba(225, 169, 155, 0.35), transparent 70%),
+      radial-gradient(30% 25% at 25% 80%, rgba(70, 89, 58, 0.45), transparent 70%);
+  }
+  /* Show fallback (and hide canvas) when reduced-motion is on
+     or WebGL failed — the gradient is enough. */
+  .liquid-canvas[data-reduced='true'] .liquid-canvas__fallback {
+    opacity: 1;
+  }
+  .liquid-canvas[data-reduced='true'] .liquid-canvas__canvas {
+    display: none;
+  }
+
   /* ───── parallax helper ───── */
   .parallax {
     will-change: transform;
@@ -353,6 +391,15 @@
     transform: none !important;
     animation: none !important;
     transition: none !important;
+  }
+  .scroll-cue .animate-pulseRing {
+    transform: none !important;
+    animation: none !important;
+    opacity: 0 !important;
+  }
+  .animate-clockRock {
+    animation: none !important;
+    transform: none !important;
   }
   .eyebrow-anim .eyebrow-line { width: 2rem !important; }
   /* service cards: always show both layers stacked, no motion */

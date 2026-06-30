@@ -1,29 +1,22 @@
-import PropTypes from 'prop-types';
 import { ArrowRight, Sparkles, Star } from 'lucide-react';
-import useCountUp from '../hooks/useCountUp';
-import ScrollCue from './ScrollCue';
+import { useEffect, useState } from 'react';
+import LiquidCanvas from './LiquidCanvas';
 
-function Stat({ value, suffix = '', decimals = 0, label, prefix = '' }) {
-  const [ref, display] = useCountUp({ to: value, decimals, suffix, prefix });
-  return (
-    <div ref={ref} className="text-cream-50/90">
-      <p className="stat-num font-display text-3xl sm:text-4xl">{display}</p>
-      <p className="mt-1 text-[11px] uppercase tracking-widest2 text-cream-100/60">
-        {label}
-      </p>
-    </div>
-  );
+function formatTime(d) {
+  return d.toLocaleTimeString('it-IT', {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
 }
 
-Stat.propTypes = {
-  value: PropTypes.number.isRequired,
-  suffix: PropTypes.string,
-  decimals: PropTypes.number,
-  label: PropTypes.string.isRequired,
-  prefix: PropTypes.string,
-};
-
 export default function Hero() {
+  // The corner mark keeps the time honest. Re-renders every minute.
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), 60 * 1000);
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <section
       id="top"
@@ -37,6 +30,11 @@ export default function Hero() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-botanical-900/70 via-botanical-900/55 to-botanical-900/80" />
         <div className="absolute inset-0 grain" />
+      </div>
+
+      {/* Liquid layer — sits between the photo and the copy */}
+      <div className="absolute inset-0 -z-10">
+        <LiquidCanvas />
       </div>
 
       <div
@@ -100,16 +98,35 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="container-luxe relative pb-10">
-        <div className="grid grid-cols-2 gap-6 border-t border-cream-50/15 pt-8 sm:grid-cols-4">
-          <Stat value={8} suffix="" label="Anni di esperienza" />
-          <Stat value={1.2} decimals={1} suffix="k" label="Ospiti coccolate" />
-          <Stat value={24} suffix="" label="Rituali su misura" />
-          <Stat value={4.9} decimals={1} suffix="★" label="Valutazione media" />
-        </div>
+      {/* Corner mark — a quiet typographic signature.
+         Slowly rocks back and forth like a clock hand. */}
+      <div
+        className="pointer-events-none absolute bottom-6 right-6 hidden items-baseline gap-3 text-cream-100/55 sm:flex animate-clockRock"
+        aria-hidden="true"
+      >
+        <span className="text-[10px] uppercase tracking-widest2">est. 2018</span>
+        <span className="h-px w-6 bg-cream-100/30" />
+        <span className="text-[10px] uppercase tracking-widest2 tabular-nums">
+          43.46° N · 11.69° E
+        </span>
+        <span className="h-px w-6 bg-cream-100/30" />
+        <span className="text-[10px] uppercase tracking-widest2 tabular-nums">
+          {formatTime(now)} cet
+        </span>
       </div>
 
-      <ScrollCue />
+      {/* The dots — a whisper of an index, doubling as a scroll cue. */}
+      <a
+        href="#servizi"
+        aria-label="Vai ai servizi"
+        className="group absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+      >
+        <span className="flex flex-col items-center gap-1.5">
+          <span className="h-1.5 w-1.5 rounded-full bg-cream-50/80" />
+          <span className="h-1.5 w-1.5 rounded-full bg-cream-50/40 transition-colors group-hover:bg-cream-50/80" />
+          <span className="h-1.5 w-1.5 rounded-full bg-cream-50/40 transition-colors group-hover:bg-cream-50/80" />
+        </span>
+      </a>
     </section>
   );
 }
