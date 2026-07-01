@@ -1,6 +1,5 @@
 import { ArrowRight, Sparkles, Star } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import LiquidCanvas from './LiquidCanvas';
 
 function formatTime(d) {
   return d.toLocaleTimeString('it-IT', {
@@ -24,27 +23,13 @@ export default function Hero() {
     >
       <div className="absolute inset-0 -z-10">
         <img
-          src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1920&q=80"
+          src="/foto-centro-luna.JPG"
           alt=""
           className="h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-botanical-900/70 via-botanical-900/55 to-botanical-900/80" />
         <div className="absolute inset-0 grain" />
       </div>
-
-      {/* Liquid layer — sits between the photo and the copy */}
-      <div className="absolute inset-0 -z-10">
-        <LiquidCanvas />
-      </div>
-
-      <div
-        className="pointer-events-none absolute -right-32 top-32 -z-10 h-72 w-72 rounded-full bg-sage-500/30 blur-3xl animate-floatY"
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute -left-24 bottom-12 -z-10 h-64 w-64 rounded-full bg-rose-300/30 blur-3xl"
-        aria-hidden="true"
-      />
 
       <div className="container-luxe relative flex min-h-[calc(100svh-6rem)] flex-col justify-center py-16 sm:py-20">
         <div className="grid items-end gap-10 lg:grid-cols-12">

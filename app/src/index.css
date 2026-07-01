@@ -320,36 +320,38 @@
     transform-origin: center;
   }
 
-  /* ───── liquid canvas: organic blobs behind the hero ───── */
-  .liquid-canvas {
-    position: absolute;
+  /* ───── ambient halos: organic blobs drifting across the page ───── */
+  .ambient-halos {
+    position: fixed;
     inset: 0;
+    z-index: 0;
     overflow: hidden;
-    pointer-events: auto;
+    pointer-events: none;
+    will-change: transform;
   }
-  .liquid-canvas__canvas {
+  .ambient-halos__canvas {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     display: block;
   }
-  .liquid-canvas__fallback {
+  .ambient-halos__fallback {
     position: absolute;
     inset: 0;
     opacity: 0;
     background:
-      radial-gradient(40% 35% at 18% 30%, rgba(107, 132, 86, 0.45), transparent 70%),
-      radial-gradient(35% 30% at 78% 22%, rgba(184, 146, 116, 0.40), transparent 70%),
-      radial-gradient(45% 40% at 62% 78%, rgba(225, 169, 155, 0.35), transparent 70%),
-      radial-gradient(30% 25% at 25% 80%, rgba(70, 89, 58, 0.45), transparent 70%);
+      radial-gradient(40% 35% at 18% 30%, rgba(107, 132, 86, 0.22), transparent 70%),
+      radial-gradient(35% 30% at 78% 22%, rgba(184, 146, 116, 0.20), transparent 70%),
+      radial-gradient(45% 40% at 62% 78%, rgba(225, 169, 155, 0.18), transparent 70%),
+      radial-gradient(30% 25% at 25% 80%, rgba(70, 89, 58, 0.22), transparent 70%);
   }
   /* Show fallback (and hide canvas) when reduced-motion is on
      or WebGL failed — the gradient is enough. */
-  .liquid-canvas[data-reduced='true'] .liquid-canvas__fallback {
+  .ambient-halos[data-reduced='true'] .ambient-halos__fallback {
     opacity: 1;
   }
-  .liquid-canvas[data-reduced='true'] .liquid-canvas__canvas {
+  .ambient-halos[data-reduced='true'] .ambient-halos__canvas {
     display: none;
   }
 

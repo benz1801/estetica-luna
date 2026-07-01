@@ -6,11 +6,13 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ScrollProgress from './components/ScrollProgress';
 import Marquee from './components/Marquee';
+import AmbientHalos from './components/AmbientHalos';
 
 function App() {
   return (
     <>
       <ScrollProgress />
+      <AmbientHalos />
       <Navbar />
       <main>
         <Hero />
