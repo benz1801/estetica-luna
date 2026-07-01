@@ -96,15 +96,15 @@ export default function About() {
           {/* LEFT: PHOTO + QUOTE */}
           <div className="relative lg:col-span-5">
             <ImageCurtain
-              src="https://images.unsplash.com/photo-1610992015732-2449b76344bc?auto=format&fit=crop&w=1200&q=80"
+              src="/claudia.jpg"
               alt="Estetista al lavoro all'interno del centro Estetica Luna"
               className="relative overflow-hidden rounded-3xl shadow-soft"
-              imgClassName="h-[520px] w-full object-cover sm:h-[600px]"
+              imgClassName="h-[560px] w-full object-cover object-[center_28%] sm:h-[640px]"
             />
 
             <Parallax
-              speed={50}
-              className="absolute -bottom-12 -left-6 hidden w-[88%] sm:block"
+              speed={28}
+              className="absolute -bottom-14 -left-6 hidden w-[88%] sm:block"
             >
               <figure className="rounded-3xl bg-botanical-900 p-7 text-cream-50 shadow-soft">
                 <Quote
@@ -132,7 +132,7 @@ export default function About() {
             </Parallax>
 
             <Parallax
-              speed={-80}
+              speed={-60}
               className="absolute -right-6 -top-6 hidden sm:block"
             >
               <div
@@ -151,6 +151,10 @@ export default function About() {
                 Lunarda Bianchi · Fondatrice
               </p>
             </figure>
+
+            {/* breathing room so the parallaxed quote never overlaps the
+                right column on shorter viewports. */}
+            <div aria-hidden="true" className="hidden h-40 sm:block" />
           </div>
 
           {/* RIGHT: PRESENTATION + VALUES + CTA */}
