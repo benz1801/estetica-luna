@@ -7,8 +7,9 @@ import Footer from './components/Footer';
 import ScrollProgress from './components/ScrollProgress';
 import Marquee from './components/Marquee';
 import AmbientHalos from './components/AmbientHalos';
+import Dashboard from './dashboard/Dashboard';
 
-function App() {
+function Landing() {
   return (
     <>
       <ScrollProgress />
@@ -34,6 +35,16 @@ function App() {
       <Footer />
     </>
   );
+}
+
+function App() {
+  // Minimal route split: /dashboard* renders the gestionale, anything
+  // else renders the public landing. No router dependency; the dev
+  // server already serves index.html for every deep link.
+  if (typeof window !== 'undefined' && window.location.pathname.startsWith('/dashboard')) {
+    return <Dashboard />;
+  }
+  return <Landing />;
 }
 
 export default App;

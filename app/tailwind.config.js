@@ -78,6 +78,10 @@ export default {
           '0%, 100%': { transform: 'rotate(-0.4deg)' },
           '50%': { transform: 'rotate(0.4deg)' },
         },
+        lunarTide: {
+          '0%, 100%': { transform: 'scale(1)', opacity: '0.95' },
+          '50%': { transform: 'scale(1.18)', opacity: '0.7' },
+        },
       },
       animation: {
         floatY: 'floatY 8s ease-in-out infinite',
@@ -85,6 +89,7 @@ export default {
         slowSpin: 'slowSpin 80s linear infinite',
         pulseRing: 'pulseRing 2.6s cubic-bezier(0.22, 1, 0.36, 1) infinite',
         clockRock: 'clockRock 9s ease-in-out infinite',
+        lunarTide: 'lunarTide 10s ease-in-out infinite',
       },
     },
   },

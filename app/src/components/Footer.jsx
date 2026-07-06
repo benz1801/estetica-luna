@@ -63,9 +63,15 @@ export default function Footer() {
       <div className="border-t border-cream-50/10">
         <div className="container-luxe flex flex-col items-center justify-between gap-3 py-6 text-xs text-cream-100/55 sm:flex-row">
           <p>© {new Date().getFullYear()} Estetica Luna · P.IVA 0123456789 · Tutti i diritti riservati.</p>
-          <p className="flex gap-5">
+          <p className="flex items-center gap-5">
             <a href="#" className="hover:text-cream-50">Privacy</a>
             <a href="#" className="hover:text-cream-50">Cookie</a>
+            <a
+              href="/dashboard"
+              className="rounded-full border border-cream-50/20 px-3 py-1 text-[10.5px] uppercase tracking-widest2 text-cream-100/70 transition-colors hover:border-bronze-400 hover:text-bronze-400"
+            >
+              Area gestionale
+            </a>
           </p>
         </div>
       </div>
