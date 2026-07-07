@@ -25,6 +25,7 @@ export default function AppointmentModal({
   onSave,
   onDelete,
   onClose,
+  actionError,
 }) {
   // form state
   const [clientId, setClientId] = useState(
@@ -259,6 +260,12 @@ export default function AppointmentModal({
             </Field>
           </div>
 
+          {actionError && (
+            <p className="mt-4 rounded-2xl border border-rose-300/60 bg-rose-50 px-4 py-2.5 text-[12px] text-rose-700">
+              {actionError}
+            </p>
+          )}
+
           {/* Footer actions */}
           <div className="mt-7 flex flex-wrap items-center justify-between gap-3 border-t border-ink-900/8 pt-5">
             <div>
@@ -356,4 +363,5 @@ AppointmentModal.propTypes = {
   onSave:   PropTypes.func.isRequired,
   onDelete: PropTypes.func,
   onClose:  PropTypes.func.isRequired,
+  actionError: PropTypes.string,
 };

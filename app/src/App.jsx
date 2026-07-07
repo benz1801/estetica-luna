@@ -7,7 +7,9 @@ import Footer from './components/Footer';
 import ScrollProgress from './components/ScrollProgress';
 import Marquee from './components/Marquee';
 import AmbientHalos from './components/AmbientHalos';
+import Login from './components/Login';
 import Dashboard from './dashboard/Dashboard';
+import { getToken, clearToken } from './lib/auth.js';
 
 function Landing() {
   return (
@@ -38,12 +40,34 @@ function Landing() {
 }
 
 function App() {
-  // Minimal route split: /dashboard* renders the gestionale, anything
-  // else renders the public landing. No router dependency; the dev
-  // server already serves index.html for every deep link.
-  if (typeof window !== 'undefined' && window.location.pathname.startsWith('/dashboard')) {
-    return <Dashboard />;
+  // Minimal route split: no router dep — we branch on the path.
+  // /login   → Login form
+  // /dashboard*  → Dashboard (guarded: requires JWT in localStorage)
+  // anything else → public landing
+  if (typeof window === 'undefined') return <Landing />;
+
+  const path = window.location.pathname;
+
+  if (path === '/login') {
+    return <Login />;
   }
+
+  if (path.startsWith('/dashboard')) {
+    if (!getToken()) {
+      // Replace so the back button doesn't bounce back to /dashboard.
+      window.location.replace('/login');
+      return null;
+    }
+    return (
+      <Dashboard
+        onLogout={() => {
+          clearToken();
+          window.location.href = '/login';
+        }}
+      />
+    );
+  }
+
   return <Landing />;
 }
 

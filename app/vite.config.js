@@ -5,6 +5,14 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    allowedHosts: true
-  }
+    allowedHosts: true,
+    proxy: {
+      // Forward API calls to the Hono server in dev. In production, the
+      // VITE_API_BASE env var (or same-origin) takes over.
+      '/api': {
+        target: 'http://localhost:8787',
+        changeOrigin: true,
+      },
+    },
+  },
 })

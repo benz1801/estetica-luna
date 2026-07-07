@@ -7,14 +7,9 @@ import WeekCalendar from './components/Calendar/WeekCalendar';
 import DetailPanel from './components/DetailPanel';
 import AppointmentModal from './components/AppointmentModal';
 import { ClientiView, TrattamentiView, ImpostazioniView } from './views/PlaceholderViews';
-import {
-  cabins as seedCabins,
-  clients as seedClients,
-  services as seedServices,
-  seedAppointments,
-  hydrateAppointments,
-} from './data/seed';
 import { addDays, toISODate, weekStart } from './lib/time';
+import { api } from '../lib/api';
+import { useApi } from '../hooks/useApi';
 
 /**
  * Dashboard — the editorial shell of the gestionale.
@@ -24,16 +19,26 @@ import { addDays, toISODate, weekStart } from './lib/time';
  *   - view:          'week' | 'day'          (granularity of the calendar)
  *   - currentWeekStart: Date                (anchor for navigation)
  *   - selectedDateISO:   string             (which day the calendar focuses on)
- *   - appointments:  array                  (in-memory; refresh returns to seed)
  *   - modal:         { mode, payload }      (create / edit a single appointment)
  *   - showSidebar:   boolean                (mobile drawer)
  *   - showDetail:    boolean                (mobile detail drawer)
+ *
+ * Data flows from the API via useApi. Catalog (cabins/clients/services) is
+ * fetched once on mount; appointments are refetched after every mutation.
  */
-export default function Dashboard() {
-  // ── Static catalog (in fase 1 è seed; in fase 2 verrà dal backend) ──
-  const [cabins]   = useState(seedCabins);
-  const [clients]  = useState(seedClients);
-  const [services] = useState(seedServices);
+export default function Dashboard({ onLogout }) {
+  // ── Catalog (fetched once) ──
+  const cabinsRes  = useApi(() => api.get('/api/cabins'),    []);
+  const clientsRes = useApi(() => api.get('/api/clients'),   []);
+  const servicesRes = useApi(() => api.get('/api/services'), []);
+  const cabins  = cabinsRes.data?.cabins   ?? [];
+  const clients = clientsRes.data?.clients ?? [];
+  // Map services from priceCents to `price` (euro) to keep Dashboard children
+  // untouched — they read `service.price`.
+  const services = useMemo(
+    () => (servicesRes.data?.services ?? []).map((s) => ({ ...s, price: s.priceCents / 100 })),
+    [servicesRes.data]
+  );
 
   // ── Navigation state ──
   const [activeView, setActiveView] = useState('calendario');
@@ -41,11 +46,22 @@ export default function Dashboard() {
   const [currentWeekStart, setCurrentWeekStart] = useState(() => weekStart(new Date()));
   const [selectedDateISO, setSelectedDateISO]   = useState(() => toISODate(new Date()));
 
-  // ── Appointments (in-memory) ──
-  const [appointments, setAppointments] = useState(() => hydrateAppointments(seedAppointments));
+  // ── Appointments (fetched for the visible week; refetched on mutation) ──
+  const weekRange = useMemo(() => {
+    const from = toISODate(currentWeekStart);
+    const to   = toISODate(addDays(currentWeekStart, 6));
+    return { from, to };
+  }, [currentWeekStart]);
+
+  const apptsRes = useApi(
+    () => api.get(`/api/appointments?from=${weekRange.from}&to=${weekRange.to}`),
+    [weekRange.from, weekRange.to]
+  );
+  const appointments = apptsRes.data?.appointments ?? [];
 
   // ── Modal state ──
   const [modal, setModal] = useState(null); // { mode, appointment?, defaults? }
+  const [actionError, setActionError] = useState(null);
 
   // ── Mobile drawers ──
   const [showSidebar, setShowSidebar] = useState(false);
@@ -76,34 +92,47 @@ export default function Dashboard() {
   };
 
   const openCreate = (defaults = {}) => {
+    setActionError(null);
     setModal({ mode: 'create', defaults });
   };
   const openEdit = (appointment) => {
+    setActionError(null);
     setModal({ mode: 'edit', appointment });
   };
   const closeModal = () => setModal(null);
 
-  const handleSave = (data) => {
+  const handleSave = async (data) => {
     if (!modal) return;
-    if (modal.mode === 'create') {
-      const id = `a${Date.now().toString(36)}`;
-      setAppointments((prev) => [...prev, { id, ...data }]);
-    } else {
-      setAppointments((prev) =>
-        prev.map((a) => (a.id === modal.appointment.id ? { ...a, ...data } : a))
-      );
+    setActionError(null);
+    try {
+      if (modal.mode === 'create') {
+        await api.post('/api/appointments', data);
+      } else {
+        await api.patch(`/api/appointments/${modal.appointment.id}`, data);
+      }
+      await apptsRes.refetch();
+      closeModal();
+    } catch (e) {
+      setActionError(e.message || 'Salvataggio non riuscito');
     }
-    closeModal();
   };
 
-  const handleDelete = (appointment) => {
+  const handleDelete = async (appointment) => {
     if (!appointment) return;
-    setAppointments((prev) => prev.filter((a) => a.id !== appointment.id));
-    closeModal();
+    setActionError(null);
+    try {
+      await api.delete(`/api/appointments/${appointment.id}`);
+      await apptsRes.refetch();
+      closeModal();
+    } catch (e) {
+      setActionError(e.message || 'Eliminazione non riuscita');
+    }
   };
 
-  // Compute the appointments list (memoized to avoid re-creating per render)
-  const apptList = useMemo(() => appointments, [appointments]);
+  // ── Loading / error states for the whole dashboard ──
+  const loadingAny =
+    cabinsRes.loading || clientsRes.loading || servicesRes.loading || apptsRes.loading;
+  const errorAny = cabinsRes.error || clientsRes.error || servicesRes.error || apptsRes.error;
 
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-cream-50 text-ink-800">
@@ -125,6 +154,7 @@ export default function Dashboard() {
           activeView={activeView}
           onChange={setActiveView}
           onCloseMobile={() => setShowSidebar(false)}
+          onLogout={onLogout}
         />
         <button
           type="button"
@@ -138,6 +168,24 @@ export default function Dashboard() {
 
       {/* ── Main column ─────────────────────────── */}
       <div className="flex h-full min-w-0 flex-1 flex-col">
+        {errorAny && (
+          <div className="border-b border-rose-300/60 bg-rose-50 px-4 py-2.5 text-[12px] text-rose-700">
+            Errore di rete: {errorAny.message}.{' '}
+            <button
+              type="button"
+              onClick={() => {
+                cabinsRes.refetch();
+                clientsRes.refetch();
+                servicesRes.refetch();
+                apptsRes.refetch();
+              }}
+              className="underline"
+            >
+              Riprova
+            </button>
+          </div>
+        )}
+
         {/* Mobile topbar (sidebar toggle + quick CTA) */}
         <div className="flex items-center justify-between border-b border-ink-900/8 bg-cream-50 px-4 py-3 md:hidden">
           <button
@@ -182,11 +230,15 @@ export default function Dashboard() {
             <div className="flex min-h-0 flex-1">
               {/* Calendar (scrolls independently) */}
               <div className="min-w-0 flex-1 overflow-y-auto p-4 sm:p-6 md:p-8">
-                {view === 'week' ? (
+                {loadingAny && appointments.length === 0 ? (
+                  <div className="grid place-items-center py-20 text-[12px] uppercase tracking-widest2 text-ink-500">
+                    Caricamento…
+                  </div>
+                ) : view === 'week' ? (
                   <WeekCalendar
                     dateISO={selectedDateISO}
                     cabins={cabins}
-                    appointments={apptList}
+                    appointments={appointments}
                     services={services}
                     clients={clients}
                     onAppointmentClick={openEdit}
@@ -196,7 +248,7 @@ export default function Dashboard() {
                   <DayView
                     dateISO={selectedDateISO}
                     cabins={cabins}
-                    appointments={apptList}
+                    appointments={appointments}
                     services={services}
                     clients={clients}
                     onAppointmentClick={openEdit}
@@ -234,7 +286,7 @@ export default function Dashboard() {
               >
                 <DetailPanel
                   dateISO={selectedDateISO}
-                  appointments={apptList}
+                  appointments={appointments}
                   services={services}
                   clients={clients}
                   onAppointmentClick={openEdit}
@@ -262,11 +314,16 @@ export default function Dashboard() {
           onSave={handleSave}
           onDelete={handleDelete}
           onClose={closeModal}
+          actionError={actionError}
         />
       )}
     </div>
   );
 }
+
+Dashboard.propTypes = {
+  onLogout: PropTypes.func,
+};
 
 /* ─────────────────────────────────────────────────────────────
    DayView — minimal alternative to WeekCalendar, used when the

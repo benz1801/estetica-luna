@@ -9,7 +9,7 @@ const items = [
   { id: 'impostazioni', label: 'Impostazioni', icon: Settings, hint: 'Profilo e orari' },
 ];
 
-export default function Sidebar({ activeView, onChange, onCloseMobile }) {
+export default function Sidebar({ activeView, onChange, onCloseMobile, onLogout }) {
   return (
     <aside
       className="
@@ -97,6 +97,7 @@ export default function Sidebar({ activeView, onChange, onCloseMobile }) {
           <button
             type="button"
             aria-label="Esci"
+            onClick={onLogout}
             className="grid h-9 w-9 flex-none place-items-center rounded-full text-cream-100/55 transition-colors hover:bg-cream-50/8 hover:text-cream-50"
           >
             <LogOut className="h-4 w-4" strokeWidth={1.4} />
@@ -111,4 +112,5 @@ Sidebar.propTypes = {
   activeView: PropTypes.string.isRequired,
   onChange:   PropTypes.func.isRequired,
   onCloseMobile: PropTypes.func,
+  onLogout: PropTypes.func,
 };

@@ -1,0 +1,18 @@
+node_modules
+dist
+.env
+.env.local
+*.log
+
+# Editor / OS
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+
+# Root DB mirror (in case someone runs from root)
+data.db
+data.db-journal
+data.db-shm
+data.db-wal
