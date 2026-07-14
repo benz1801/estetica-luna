@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(npm --version)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(curl -sI \"https://benz1801.github.io/estetica-luna/sitemap.xml\")",
+      "Bash(curl -sI \"https://benz1801.github.io/estetica-luna/robots.txt\")"
     ]
   }
 }
