@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://benz1801.github.io/estetica-luna/sitemap.xml
