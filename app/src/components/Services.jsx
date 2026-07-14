@@ -22,10 +22,7 @@ const services = [
     tagline: 'Cere vegetali, pelle liscia a lungo.',
     description:
       'Epilazione progressiva con cere vegetali tiepide, stretch delicate e una routine post-trattamento che idrata e lenisce. Per gambe, braccia e zone estese.',
-    duration: '30 — 60 min',
-    price: 'da € 25',
     accent: 'rose',
-    align: 'left',
   },
   {
     icon: Sparkles,
@@ -33,10 +30,7 @@ const services = [
     tagline: 'Pulizia profonda, gesti precisi.',
     description:
       'Ceretta intima totale con tecnica brasiliana, prodotti ipoallergenici e attenzione assoluta a comfort e privacy. Igiene assoluta, zero giudizio.',
-    duration: '40 min',
-    price: 'da € 45',
     accent: 'rose',
-    align: 'center',
   },
   {
     icon: Plus,
@@ -44,10 +38,7 @@ const services = [
     tagline: 'Sopracciglia disegnate, viso che si apre.',
     description:
       'Design sopracciglia con la tradizionale tecnica del filo arabo: precisione millimetrica, traiettoria naturale del pelo, sguardo liftato senza pinzette aggressive.',
-    duration: '15 — 20 min',
-    price: 'da € 15',
     accent: 'sage',
-    align: 'center',
   },
   {
     icon: Wind,
@@ -55,10 +46,7 @@ const services = [
     tagline: 'Oli botanici, ritmo lento.',
     description:
       'Massaggi mirati — decontratturante, rilassante, drenante o linfatico — costruiti sul tuo corpo e sul momento. Oli botanici spremuti a freddo e musica a basso volume.',
-    duration: '50 — 75 min',
-    price: 'da € 60',
     accent: 'sage',
-    align: 'left',
   },
   {
     icon: Hand,
@@ -66,10 +54,7 @@ const services = [
     tagline: 'Mani e piedi come rituali quotidiani.',
     description:
       'Trattamenti completi per mani e piedi con bagni emollienti, cuticole curate, limatura studiata e finiture dal nude più sobrio allo smalto semipermanente. Formule biologiche.',
-    duration: '45 — 75 min',
-    price: 'da € 35',
     accent: 'rose',
-    align: 'center',
   },
   {
     icon: Flower2,
@@ -77,10 +62,7 @@ const services = [
     tagline: 'Ciglia curve, sguardo naturale.',
     description:
       'Laminazione ciglia e sopracciglia con cheratina e vitamine: curvatura naturale, volume disciplinato e un effetto "sveglia così" che dura fino a sei settimane.',
-    duration: '45 min',
-    price: 'da € 55',
     accent: 'rose',
-    align: 'left',
   },
   {
     icon: HeartPulse,
@@ -88,10 +70,7 @@ const services = [
     tagline: 'Leggerezza, gambe sgonfie.',
     description:
       'Pressoterapia sequenziale con gambali a 12 camere d&apos;aria per favorire il microcircolo, alleggerire le gambe e combattere ritenzione. Ideale dopo l&apos;estate o in gravidanza.',
-    duration: '30 — 45 min',
-    price: 'da € 40',
     accent: 'sage',
-    align: 'center',
   },
   {
     icon: Eye,
@@ -99,10 +78,7 @@ const services = [
     tagline: 'Volume, lunghezza, personalità.',
     description:
       'Applicazione one-to-one di extension in seta o pelo sintetico di ultima generazione. Effetto ciglia finte che durano fino a cinque settimane, con refill periodici dedicati.',
-    duration: '90 — 120 min',
-    price: 'da € 90',
     accent: 'rose',
-    align: 'left',
   },
 ];
 
@@ -163,15 +139,11 @@ export default function Services() {
               <ServiceCard
                 key={s.title}
                 ref={cardRefs[i]}
-                index={i + 1}
                 icon={s.icon}
                 title={s.title}
                 tagline={s.tagline}
                 description={s.description}
-                duration={s.duration}
-                price={s.price}
                 accent={s.accent}
-                align={s.align}
                 transitionDelay={(gridStagger.getItemStyle(i)?.transitionDelay || 0)
                   .replace('ms', '')}
               />
