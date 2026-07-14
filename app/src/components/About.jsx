@@ -96,7 +96,7 @@ export default function About() {
           {/* LEFT: PHOTO + QUOTE */}
           <div className="relative lg:col-span-5">
             <ImageCurtain
-              src="/claudia.jpg"
+              src={`${import.meta.env.BASE_URL}claudia.jpg`}
               alt="Estetista al lavoro all'interno del centro Estetica Luna"
               className="relative overflow-hidden rounded-3xl shadow-soft"
               imgClassName="h-[560px] w-full object-cover object-[center_28%] sm:h-[640px]"

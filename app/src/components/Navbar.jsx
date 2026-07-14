@@ -29,7 +29,7 @@ export default function Navbar() {
       <div className="container-luxe flex h-20 items-center justify-between">
         <a href="#top" className="group flex items-center gap-3" aria-label="Estetica Luna home">
           <span className="grid h-10 w-10 place-items-center rounded-full bg-botanical-900 text-cream-50">
-            <img src="/luna.svg" alt="Logo Estetica Luna" className="h-8 w-8 rotate-45 object-contain" />
+            <img src={`${import.meta.env.BASE_URL}luna.svg`} alt="Logo Estetica Luna" className="h-8 w-8 rotate-45 object-contain" />
           </span>
           <span className="leading-tight">
             <span className="block font-display text-xl text-ink-900">Estetica Luna</span>

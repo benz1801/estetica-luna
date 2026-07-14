@@ -13,7 +13,7 @@ export default function Footer() {
         <div>
           <div className="flex items-center gap-3">
             <span className="grid h-10 w-10 place-items-center rounded-full bg-cream-50/10 text-cream-50">
-              <img src="/luna.svg" alt="Logo Estetica Luna" className="h-8 w-8 rotate-45 object-contain" />
+              <img src={`${import.meta.env.BASE_URL}luna.svg`} alt="Logo Estetica Luna" className="h-8 w-8 rotate-45 object-contain" />
             </span>
             <span className="font-display text-xl text-cream-50">Estetica Luna</span>
           </div>

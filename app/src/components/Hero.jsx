@@ -23,7 +23,7 @@ export default function Hero() {
     >
       <div className="absolute inset-0 -z-10">
         <img
-          src="/foto-centro-luna.JPG"
+          src={`${import.meta.env.BASE_URL}foto-centro-luna.JPG`}
           alt=""
           className="h-full w-full object-cover"
         />
