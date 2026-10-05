@@ -173,7 +173,7 @@ export default function Contact() {
                   style={photoCardStagger.getItemStyle(0)}
                 >
                   <ImageCurtain
-                    src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?auto=format&fit=crop&w=1200&q=80"
+                    src={`${import.meta.env.BASE_URL}foto-centro-luna.JPG`}
                     alt="Interno del centro estetico con luci soffuse e piante"
                     className="h-full w-full"
                     imgClassName="h-full w-full object-cover"

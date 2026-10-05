@@ -10,12 +10,35 @@ const links = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState('');
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    const sections = links
+      .map((l) => document.querySelector(l.href))
+      .filter(Boolean);
+    if (sections.length === 0 || typeof IntersectionObserver === 'undefined') {
+      return undefined;
+    }
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActive(`#${entry.target.id}`);
+          }
+        }
+      },
+      { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
+    );
+    sections.forEach((el) => io.observe(el));
+    return () => io.disconnect();
   }, []);
 
   return (
@@ -40,16 +63,26 @@ export default function Navbar() {
         </a>
 
         <nav className="hidden items-center gap-10 md:flex" aria-label="Navigazione principale">
-          {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="group relative text-sm text-ink-800 transition-colors hover:text-sage-700"
-            >
-              {l.label}
-              <span className="absolute -bottom-1 left-0 h-px w-0 bg-sage-700 transition-all duration-300 group-hover:w-full" />
-            </a>
-          ))}
+          {links.map((l) => {
+            const isActive = active === l.href;
+            return (
+              <a
+                key={l.href}
+                href={l.href}
+                aria-current={isActive ? 'true' : undefined}
+                className={`group relative text-sm transition-colors hover:text-sage-700 ${
+                  isActive ? 'text-sage-700' : 'text-ink-800'
+                }`}
+              >
+                {l.label}
+                <span
+                  className={`absolute -bottom-1 left-0 h-px bg-sage-700 transition-all duration-300 group-hover:w-full ${
+                    isActive ? 'w-full' : 'w-0'
+                  }`}
+                />
+              </a>
+            );
+          })}
           <a href="#contatti" className="btn-primary !py-2.5 !px-5 text-xs">
             Prenota <ArrowUpRight className="h-3.5 w-3.5" />
           </a>

@@ -104,7 +104,7 @@ export default function About() {
 
             <Parallax
               speed={28}
-              className="absolute -bottom-14 -left-6 hidden w-[88%] sm:block"
+              className="absolute -bottom-14 -left-6 hidden w-[88%] lg:block"
             >
               <figure className="rounded-3xl bg-botanical-900 p-7 text-cream-50 shadow-soft">
                 <Quote
@@ -133,7 +133,7 @@ export default function About() {
 
             <Parallax
               speed={-60}
-              className="absolute -right-6 -top-6 hidden sm:block"
+              className="absolute -right-6 -top-6 hidden lg:block"
             >
               <div
                 className="h-28 w-28 rounded-full ring-deco animate-slowSpin"
@@ -141,8 +141,8 @@ export default function About() {
               />
             </Parallax>
 
-            {/* mobile-only quote */}
-            <figure className="mt-6 rounded-3xl bg-botanical-900 p-6 text-cream-50 shadow-soft sm:hidden">
+            {/* quote shown up to the point the two-column layout kicks in */}
+            <figure className="mt-6 rounded-3xl bg-botanical-900 p-6 text-cream-50 shadow-soft lg:hidden">
               <Quote className="h-6 w-6 text-bronze-400" strokeWidth={1.25} />
               <blockquote className="mt-4 font-display text-xl italic leading-snug">
                 «Lunarda, perché ogni donna ha una luna interiore che merita di splendere.»
@@ -154,7 +154,7 @@ export default function About() {
 
             {/* breathing room so the parallaxed quote never overlaps the
                 right column on shorter viewports. */}
-            <div aria-hidden="true" className="hidden h-40 sm:block" />
+            <div aria-hidden="true" className="hidden h-40 lg:block" />
           </div>
 
           {/* RIGHT: PRESENTATION + VALUES + CTA */}
@@ -255,7 +255,9 @@ export default function About() {
               <li
                 key={`${c.year}-${c.title}`}
                 ref={certRefs[i]}
-                className="reveal-blur group relative p-6 transition-all duration-500 hover:bg-cream-100/80 sm:p-7"
+                className={`reveal-blur group relative p-6 transition-all duration-500 hover:bg-cream-100/80 sm:p-7 ${
+                  i === certifications.length - 1 ? 'sm:col-span-2 lg:col-span-1' : ''
+                }`}
                 style={certStagger.getItemStyle(i)}
               >
                 {/* stamp circle */}

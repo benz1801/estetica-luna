@@ -1,5 +1,6 @@
 import { ArrowRight, Sparkles, Star } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import Parallax from './Parallax';
 
 function formatTime(d) {
   return d.toLocaleTimeString('it-IT', {
@@ -21,20 +22,22 @@ export default function Hero() {
       id="top"
       className="relative isolate min-h-[100svh] overflow-hidden pt-24 sm:pt-28"
     >
-      <div className="absolute inset-0 -z-10">
-        <img
-          src={`${import.meta.env.BASE_URL}foto-centro-luna.JPG`}
-          alt=""
-          className="h-full w-full object-cover"
-        />
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <Parallax speed={48} className="absolute inset-0">
+          <img
+            src={`${import.meta.env.BASE_URL}foto-centro-luna.JPG`}
+            alt=""
+            className="h-full w-full scale-110 object-cover"
+          />
+        </Parallax>
         <div className="absolute inset-0 bg-gradient-to-b from-botanical-900/70 via-botanical-900/55 to-botanical-900/80" />
         <div className="absolute inset-0 grain" />
       </div>
 
-      <div className="container-luxe relative flex min-h-[calc(100svh-6rem)] flex-col justify-center py-16 sm:py-20">
+      <div className="container-luxe relative flex min-h-[calc(100svh-6rem)] flex-col justify-center py-16 sm:min-h-[calc(100svh-7rem)] sm:py-20">
         <div className="grid items-end gap-10 lg:grid-cols-12">
           <div className="lg:col-span-8">
-            <span className="inline-flex items-center gap-2 rounded-full border border-cream-50/20 bg-cream-50/10 px-4 py-1.5 text-[11px] font-medium uppercase tracking-widest2 text-cream-100 backdrop-blur animate-riseIn">
+            <span className="badge-shimmer inline-flex items-center gap-2 rounded-full border border-cream-50/20 bg-cream-50/10 px-4 py-1.5 text-[11px] font-medium uppercase tracking-widest2 text-cream-100 backdrop-blur animate-riseIn">
               <Sparkles className="h-3.5 w-3.5" /> Nuovo capitolo di bellezza
             </span>
 

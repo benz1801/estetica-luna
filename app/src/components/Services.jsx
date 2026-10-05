@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import useReveal from '../hooks/useReveal';
 import useRevealStagger from '../hooks/useRevealStagger';
+import useCountUp from '../hooks/useCountUp';
 import SplitText from './SplitText';
 import Eyebrow from './Eyebrow';
 import Marquee from './Marquee';
@@ -93,6 +94,8 @@ export default function Services() {
   const headerStagger = useRevealStagger({ step: 110 });
   const gridStagger = useRevealStagger({ step: 90, base: 220 });
 
+  const [countRef, countDisplay] = useCountUp({ to: services.length, duration: 1400 });
+
   return (
     <>
       <section
@@ -132,6 +135,17 @@ export default function Services() {
               Ogni trattamento nasce da un consulto iniziale gratuito, per disegnare un percorso che
               rispetti la tua pelle, i tuoi tempi e il tuo momento.
             </p>
+          </div>
+
+          <div ref={countRef} className="mt-10 flex items-baseline gap-3">
+            <span className="font-display text-5xl leading-none text-sage-700 sm:text-6xl">
+              {countDisplay}
+            </span>
+            <span className="text-[11px] uppercase tracking-widest2 text-ink-500">
+              rituali su misura,
+              <br />
+              pensati per te
+            </span>
           </div>
 
           <ul className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">

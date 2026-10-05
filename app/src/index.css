@@ -201,6 +201,11 @@
     animation: marqueeScroll 38s linear infinite;
     will-change: transform;
   }
+  @media (max-width: 640px) {
+    .marquee-track {
+      animation-duration: 24s;
+    }
+  }
   .marquee:hover .marquee-track {
     animation-play-state: paused;
   }
@@ -369,6 +374,29 @@
             background-clip: text;
     color: transparent;
   }
+
+  /* ───── hero badge: slow shimmer sweep across the border ───── */
+  .badge-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  .badge-shimmer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      100deg,
+      transparent 20%,
+      rgba(251, 248, 242, 0.35) 50%,
+      transparent 80%
+    );
+    transform: translateX(-100%);
+    animation: badgeShimmer 3.2s ease-in-out infinite;
+  }
+  @keyframes badgeShimmer {
+    0%, 55% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -389,7 +417,8 @@
   .marquee-track,
   .scroll-cue .cue-line::after,
   .eyebrow-anim .eyebrow-line,
-  .eyebrow-anim .eyebrow-label {
+  .eyebrow-anim .eyebrow-label,
+  .badge-shimmer::after {
     transform: none !important;
     animation: none !important;
     transition: none !important;

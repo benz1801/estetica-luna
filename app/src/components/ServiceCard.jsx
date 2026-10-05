@@ -3,11 +3,10 @@ import { forwardRef } from 'react';
 
 /**
  * Two-layer "poster" card.
- * - Base layer: large icon centered in the middle, title and tagline below.
- *   Calm, editorial.
- * - Hover layer: colored panel slides up from the bottom, revealing the
- *   treatment icon (top right), title, description and a CTA.
- *   Only on hover-capable pointers.
+ * - Below `md` (touch devices): only the colored panel renders, always open,
+ *   so the description and CTA are reachable without a hover state.
+ * - From `md` up: base layer (icon, title, tagline) is shown at rest; the
+ *   panel slides up from the bottom on hover/focus.
  */
 const ServiceCard = forwardRef(function ServiceCard(
   {
@@ -51,16 +50,16 @@ const ServiceCard = forwardRef(function ServiceCard(
           focus-within:-translate-y-2 focus-within:scale-[1.025] focus-within:shadow-leaf
         `}
       >
-        {/* ───── BASE LAYER ───── */}
+        {/* ───── BASE LAYER (desktop/hover only — on touch the panel below is always open) ───── */}
         <div
           className={`
-            relative z-0 flex h-full w-full flex-col items-center p-6 sm:p-7
+            relative z-0 hidden h-full w-full flex-col items-center p-6 sm:p-7
             transition-opacity duration-500
-            md:group-hover:opacity-0 md:group-focus-within:opacity-0
+            md:flex md:group-hover:opacity-0 md:group-focus-within:opacity-0
           `}
         >
           <span
-            className={`mt-12 inline-grid h-24 w-24 place-items-center rounded-3xl ring-1 ${a.iconBg} ${a.ring}`}
+            className={`mt-12 inline-grid h-24 w-24 place-items-center rounded-3xl ring-1 ${a.iconBg} ${a.ring} transition-transform duration-500 md:group-hover:scale-110`}
           >
             <Icon className="h-12 w-12" strokeWidth={1.15} />
           </span>
@@ -83,23 +82,19 @@ const ServiceCard = forwardRef(function ServiceCard(
           </div>
         </div>
 
-        {/* ───── HOVER LAYER ───── */}
+        {/* ───── PANEL LAYER — always open on touch (<md), flips up on hover/focus from md: up ───── */}
         <div
           className={`
-            absolute inset-0 z-10 flex flex-col p-6 sm:p-7
+            relative z-10 flex h-full w-full flex-col p-6 sm:p-7
+            md:absolute md:inset-0
             ${a.panel}
-            translate-y-full
+            md:translate-y-full
             transition-transform duration-[700ms] ease-[cubic-bezier(0.77,0,0.175,1)]
             md:group-hover:translate-y-0 md:group-focus-within:translate-y-0
           `}
-          aria-hidden="false"
         >
           <div className="flex items-start justify-end">
-            <span
-              className={`
-                inline-grid h-14 w-14 place-items-center rounded-2xl bg-cream-50/10 ring-1 ring-cream-50/20
-              `}
-            >
+            <span className="inline-grid h-14 w-14 place-items-center rounded-2xl bg-cream-50/10 ring-1 ring-cream-50/20">
               <Icon className="h-7 w-7" strokeWidth={1.25} />
             </span>
           </div>
@@ -121,9 +116,9 @@ const ServiceCard = forwardRef(function ServiceCard(
           </div>
         </div>
 
-        {/* decorative ring (visible only on base layer) */}
+        {/* decorative ring (visible only on desktop base layer) */}
         <div
-          className="pointer-events-none absolute -bottom-10 -right-10 h-32 w-32 rounded-full ring-deco opacity-50 transition-opacity duration-500 md:group-hover:opacity-0"
+          className="pointer-events-none absolute -bottom-10 -right-10 hidden h-32 w-32 rounded-full ring-deco opacity-50 transition-opacity duration-500 md:block md:group-hover:opacity-0"
           aria-hidden="true"
         />
       </article>
