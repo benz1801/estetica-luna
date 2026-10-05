@@ -6,5 +6,8 @@
       "Bash(curl -sI \"https://benz1801.github.io/estetica-luna/sitemap.xml\")",
       "Bash(curl -sI \"https://benz1801.github.io/estetica-luna/robots.txt\")"
     ]
+  },
+  "enabledPlugins": {
+    "ui-ux-pro-max@ui-ux-pro-max-skill": true
   }
 }
